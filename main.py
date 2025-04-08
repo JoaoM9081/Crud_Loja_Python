@@ -1,6 +1,6 @@
 from Loja import Loja
 
-def menuInterativo():
+def menu():
     loja = Loja()
     while True:
         print("\n--- MENU LOJA ---")
@@ -61,5 +61,4 @@ def menuInterativo():
         else:
             print("Opção inválida.")
 
-if __name__ == "__main__":
-    menuInterativo()
+menu()

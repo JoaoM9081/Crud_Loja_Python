@@ -74,10 +74,3 @@ class Loja:
                 print("Valor insuficiente. Compra cancelada.")
         except:
             print("Valor inválido. Compra cancelada.")
-
-    def aumentarEstoqueProduto(self, indice, quantidade):
-        if 0 <= indice < len(self.produtos):
-            self.produtos[indice].quantidade += quantidade
-            print(f"Estoque de {self.produtos[indice].nome} atualizado.")
-        else:
-            print("Produto inválido.")
