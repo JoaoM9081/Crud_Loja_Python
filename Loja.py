@@ -1,5 +1,5 @@
-from service.Produto import Produto
-from service.Carrinho import Carrinho
+from Produto import Produto
+from Carrinho import Carrinho
 
 class Loja:
     def __init__(self):
@@ -18,13 +18,13 @@ class Loja:
     def exibirProdutos(self):
         print("\nProdutos disponíveis:")
         for i, p in enumerate(self.produtos):
-            print(f"{i+1}. {p.nome} - R$ {p.preco:.2f} - Estoque: {p.quantidade}")
+            descontoInfo = " (Cupom disponível)" if p.descontoPermitido else ""
+            print(f"{i+1}. {p.nome} - R$ {p.preco:.2f} - Estoque: {p.quantidade}{descontoInfo}")
 
     def adicionarAoCarrinho(self, indice, quantidade):
         if 0 <= indice < len(self.produtos):
             produto = self.produtos[indice]
             if produto.estaDisponivel(quantidade):
-                produto.reduzirEstoque(quantidade)
                 self.carrinho.adicionarItem(produto, quantidade)
                 print("Produto adicionado ao carrinho.")
             else:
@@ -32,16 +32,27 @@ class Loja:
         else:
             print("Produto inválido.")
 
+    def confirmarCompra(self):
+        for item in self.carrinho.itens.values():
+            produto = item['produto']
+            quantidade = item['quantidade']
+            produto.reduzirEstoque(quantidade)
+
+
     def aplicarDescontoProduto(self, indice, percentual):
         if 0 <= indice < len(self.produtos):
             produto = self.produtos[indice]
             if produto.descontoPermitido:
-                produto.aplicarDesconto(percentual)
-                print(f"Desconto aplicado. Novo preço: R$ {produto.preco:.2f}")
+                if 0 < percentual <= 75:
+                    produto.aplicarDesconto(percentual)
+                    print(f"Desconto aplicado. Novo preço: R$ {produto.preco:.2f}")
+                else:
+                    print("Percentual do desconto inválido. Descontos permitidos apenas entre 1% a 75%")
             else:
                 print("Este produto não permite descontos.")
         else:
             print("Produto inválido.")
+
 
     def simularPagamento(self, metodoPagamento):
         total = self.carrinho.calcularTotal()
@@ -57,6 +68,7 @@ class Loja:
             if valorPago >= total:
                 troco = valorPago - total
                 print(f"Pagamento aprovado. Troco: R$ {troco:.2f}")
+                self.confirmarCompra()
                 self.carrinho.esvaziarCarrinho()
             else:
                 print("Valor insuficiente. Compra cancelada.")

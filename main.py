@@ -1,4 +1,4 @@
-from service.Loja import Loja
+from Loja import Loja
 
 def menuInterativo():
     loja = Loja()
@@ -9,8 +9,7 @@ def menuInterativo():
         print("3. Ver carrinho")
         print("4. Aplicar desconto em produto")
         print("5. Finalizar compra")
-        print("6. Aumentar estoque de um produto")
-        print("7. Sair")
+        print("6. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -30,7 +29,7 @@ def menuInterativo():
 
         elif opcao == "3":
             loja.carrinho.listarItens()
-            print(f"Total atual: R$ {loja.carrinho.calcularTotal():.2f}")
+            print(f"Total: R$ {loja.carrinho.calcularTotal():.2f}")
 
         elif opcao == "4":
             loja.exibirProdutos()
@@ -56,18 +55,6 @@ def menuInterativo():
                 print("Carrinho vazio.")
 
         elif opcao == "6":
-            loja.exibirProdutos()
-            try:
-                i = int(input("Escolha o produto para repor estoque: ")) - 1
-                qtd = int(input("Quantidade a adicionar: "))
-                if qtd > 0:
-                    loja.aumentarEstoqueProduto(i, qtd)
-                else:
-                    print("Quantidade deve ser maior que zero.")
-            except:
-                print("Entrada inválida.")
-
-        elif opcao == "7":
             print("Encerrando o sistema.")
             break
 
