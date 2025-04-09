@@ -1,3 +1,5 @@
+from service.Produto import Produto
+
 class Carrinho:
     def __init__(self):
         self.itens = {}

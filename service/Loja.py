@@ -1,5 +1,5 @@
-from Produto import Produto
-from Carrinho import Carrinho
+from service.Produto import Produto
+from service.Carrinho import Carrinho
 
 class Loja:
     def __init__(self):

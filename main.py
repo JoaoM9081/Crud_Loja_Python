@@ -1,4 +1,4 @@
-from Loja import Loja
+from service.Loja import Loja
 
 def menu():
     loja = Loja()
