@@ -4,9 +4,14 @@ class Produto:
         self.preco = preco
         self.quantidade = quantidade
         self.descontoPermitido = descontoPermitido
+        self.desconto_aplicado = False 
 
     def aplicarDesconto(self, percentual):
-        self.preco -= self.preco * (percentual / 100)
+        if not self.desconto_aplicado:
+            self.preco -= self.preco * (percentual / 100)
+            self.desconto_aplicado = True  
+        else:
+            print(f"Desconto já foi aplicado ao produto {self.nome}.")
 
     def reduzirEstoque(self, quantidade):
         self.quantidade -= quantidade
